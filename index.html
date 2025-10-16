@@ -8,16 +8,17 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+        <link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
         #map {
-            width: 1140px;
+            width: 1440px;
             height: 792px;
         }
         </style>
-        <title></title>
+        <title>New congressional district lines in Boone County, Missouri</title>
     </head>
     <body>
         <div id="map">
@@ -25,6 +26,7 @@
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/L.Control.Layers.Tree.min.js"></script>
+        <script src="js/L.Control.Locate.min.js"></script>
         <script src="js/leaflet.rotatedMarker.js"></script>
         <script src="js/leaflet.pattern.js"></script>
         <script src="js/leaflet-hash.js"></script>
@@ -34,12 +36,13 @@
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
         <script src="data/tl_2025_29_tabblock20_0.js"></script>
-        <script src="data/tl_2025_29019_roads_1.js"></script>
-        <script src="data/tl_2025_29_place_2.js"></script>
+        <script src="data/tl_2025_us_county_1.js"></script>
+        <script src="data/tl_2025_29019_roads_2.js"></script>
+        <script src="data/tl_2025_29_place_3.js"></script>
         <script>
         var map = L.map('map', {
-            zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[38.46047551417436,-93.14042491734243],[39.60108758604112,-91.4973660087549]]);
+            zoomControl:false, maxZoom:28, minZoom:10
+        }).fitBounds([[38.71333554629856,-92.70281144733072],[39.14920922086366,-91.90941101185682]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -107,6 +110,7 @@
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -182,7 +186,12 @@
             if (exp_tl_2025_29_tabblock20_0rule0_eval_expression(context)) {
                   return {
                 pane: 'pane_tl_2025_29_tabblock20_0',
-                stroke: false, 
+                opacity: 1,
+                color: 'rgba(0,137,208,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(0,137,208,1.0)',
@@ -192,7 +201,12 @@
                 else if (exp_tl_2025_29_tabblock20_0rule1_eval_expression(context)) {
                   return {
                 pane: 'pane_tl_2025_29_tabblock20_0',
-                stroke: false, 
+                opacity: 1,
+                color: 'rgba(242,142,38,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(242,142,38,1.0)',
@@ -200,19 +214,7 @@
             };
                 }
             else {
-                return {
-                pane: 'pane_tl_2025_29_tabblock20_0',
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1.0, 
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(230,149,37,1.0)',
-                interactive: false,
-            };
+                return {fill: false, stroke: false};
             }
         }
         map.createPane('pane_tl_2025_29_tabblock20_0');
@@ -229,7 +231,98 @@
         });
         bounds_group.addLayer(layer_tl_2025_29_tabblock20_0);
         map.addLayer(layer_tl_2025_29_tabblock20_0);
-        function pop_tl_2025_29019_roads_1(feature, layer) {
+        function pop_tl_2025_us_county_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['STATEFP'] !== null ? autolinker.link(String(feature.properties['STATEFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYFP'] !== null ? autolinker.link(String(feature.properties['COUNTYFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['COUNTYNS'] !== null ? autolinker.link(String(feature.properties['COUNTYNS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOID'] !== null ? autolinker.link(String(feature.properties['GEOID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GEOIDFQ'] !== null ? autolinker.link(String(feature.properties['GEOIDFQ']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NAME'] !== null ? autolinker.link(String(feature.properties['NAME']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td class="visible-with-data" id="NAMELSAD" colspan="2"><strong>NAMELSAD</strong><br />' + (feature.properties['NAMELSAD'] !== null ? autolinker.link(String(feature.properties['NAMELSAD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LSAD'] !== null ? autolinker.link(String(feature.properties['LSAD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CLASSFP'] !== null ? autolinker.link(String(feature.properties['CLASSFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MTFCC'] !== null ? autolinker.link(String(feature.properties['MTFCC']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CSAFP'] !== null ? autolinker.link(String(feature.properties['CSAFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CBSAFP'] !== null ? autolinker.link(String(feature.properties['CBSAFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['METDIVFP'] !== null ? autolinker.link(String(feature.properties['METDIVFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FUNCSTAT'] !== null ? autolinker.link(String(feature.properties['FUNCSTAT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ALAND'] !== null ? autolinker.link(String(feature.properties['ALAND']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AWATER'] !== null ? autolinker.link(String(feature.properties['AWATER']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INTPTLAT'] !== null ? autolinker.link(String(feature.properties['INTPTLAT']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['INTPTLON'] !== null ? autolinker.link(String(feature.properties['INTPTLON']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            var content = removeEmptyRowsFromPopupContent(popupContent, feature);
+			layer.on('popupopen', function(e) {
+				addClassToPopupIfMedia(content, e.popup);
+			});
+			layer.bindPopup(content, { maxHeight: 400 });
+        }
+
+        function style_tl_2025_us_county_1_0() {
+            return {
+                pane: 'pane_tl_2025_us_county_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_tl_2025_us_county_1');
+        map.getPane('pane_tl_2025_us_county_1').style.zIndex = 401;
+        map.getPane('pane_tl_2025_us_county_1').style['mix-blend-mode'] = 'normal';
+        var layer_tl_2025_us_county_1 = new L.geoJson(json_tl_2025_us_county_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_tl_2025_us_county_1',
+            layerName: 'layer_tl_2025_us_county_1',
+            pane: 'pane_tl_2025_us_county_1',
+            onEachFeature: pop_tl_2025_us_county_1,
+            style: style_tl_2025_us_county_1_0,
+        });
+        bounds_group.addLayer(layer_tl_2025_us_county_1);
+        map.addLayer(layer_tl_2025_us_county_1);
+        function pop_tl_2025_29019_roads_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['LINEARID'] !== null ? autolinker.link(String(feature.properties['LINEARID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -254,9 +347,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_tl_2025_29019_roads_1_0() {
+        function style_tl_2025_29019_roads_2_0() {
             return {
-                pane: 'pane_tl_2025_29019_roads_1',
+                pane: 'pane_tl_2025_29019_roads_2',
                 opacity: 1,
                 color: 'rgba(59,59,59,1.0)',
                 dashArray: '',
@@ -267,21 +360,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_tl_2025_29019_roads_1');
-        map.getPane('pane_tl_2025_29019_roads_1').style.zIndex = 401;
-        map.getPane('pane_tl_2025_29019_roads_1').style['mix-blend-mode'] = 'normal';
-        var layer_tl_2025_29019_roads_1 = new L.geoJson(json_tl_2025_29019_roads_1, {
+        map.createPane('pane_tl_2025_29019_roads_2');
+        map.getPane('pane_tl_2025_29019_roads_2').style.zIndex = 402;
+        map.getPane('pane_tl_2025_29019_roads_2').style['mix-blend-mode'] = 'normal';
+        var layer_tl_2025_29019_roads_2 = new L.geoJson(json_tl_2025_29019_roads_2, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_tl_2025_29019_roads_1',
-            layerName: 'layer_tl_2025_29019_roads_1',
-            pane: 'pane_tl_2025_29019_roads_1',
-            onEachFeature: pop_tl_2025_29019_roads_1,
-            style: style_tl_2025_29019_roads_1_0,
+            dataVar: 'json_tl_2025_29019_roads_2',
+            layerName: 'layer_tl_2025_29019_roads_2',
+            pane: 'pane_tl_2025_29019_roads_2',
+            onEachFeature: pop_tl_2025_29019_roads_2,
+            style: style_tl_2025_29019_roads_2_0,
         });
-        bounds_group.addLayer(layer_tl_2025_29019_roads_1);
-        map.addLayer(layer_tl_2025_29019_roads_1);
-        function pop_tl_2025_29_place_2(feature, layer) {
+        bounds_group.addLayer(layer_tl_2025_29019_roads_2);
+        map.addLayer(layer_tl_2025_29019_roads_2);
+        function pop_tl_2025_29_place_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['STATEFP'] !== null ? autolinker.link(String(feature.properties['STATEFP']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
@@ -339,50 +432,50 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_tl_2025_29_place_2_0() {
+        function style_tl_2025_29_place_3_0() {
             return {
                 fill: false,
                 stroke: false,
                 interactive: false
             }
         }
-        map.createPane('pane_tl_2025_29_place_2');
-        map.getPane('pane_tl_2025_29_place_2').style.zIndex = 402;
-        map.getPane('pane_tl_2025_29_place_2').style['mix-blend-mode'] = 'normal';
-        var layer_tl_2025_29_place_2 = new L.geoJson(json_tl_2025_29_place_2, {
+        map.createPane('pane_tl_2025_29_place_3');
+        map.getPane('pane_tl_2025_29_place_3').style.zIndex = 403;
+        map.getPane('pane_tl_2025_29_place_3').style['mix-blend-mode'] = 'normal';
+        var layer_tl_2025_29_place_3 = new L.geoJson(json_tl_2025_29_place_3, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_tl_2025_29_place_2',
-            layerName: 'layer_tl_2025_29_place_2',
-            pane: 'pane_tl_2025_29_place_2',
-            onEachFeature: pop_tl_2025_29_place_2,
-            style: style_tl_2025_29_place_2_0,
+            dataVar: 'json_tl_2025_29_place_3',
+            layerName: 'layer_tl_2025_29_place_3',
+            pane: 'pane_tl_2025_29_place_3',
+            onEachFeature: pop_tl_2025_29_place_3,
+            style: style_tl_2025_29_place_3_0,
         });
-        bounds_group.addLayer(layer_tl_2025_29_place_2);
-        map.addLayer(layer_tl_2025_29_place_2);
+        bounds_group.addLayer(layer_tl_2025_29_place_3);
+        map.addLayer(layer_tl_2025_29_place_3);
         setBounds();
         var i = 0;
-        layer_tl_2025_29_place_2.eachLayer(function(layer) {
+        layer_tl_2025_29_place_3.eachLayer(function(layer) {
             var context = {
                 feature: layer.feature,
                 variables: {}
             };
-            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_tl_2025_29_place_2'});
+            layer.bindTooltip((layer.feature.properties['NAME'] !== null?String('<div style="color: #323232; font-size: 10pt; font-weight: bold; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['NAME']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_tl_2025_29_place_3'});
             labels.push(layer);
             totalMarkers += 1;
               layer.added = true;
               addLabel(layer, i);
               i++;
         });
-        resetLabels([layer_tl_2025_29_place_2]);
+        resetLabels([layer_tl_2025_29_place_3]);
         map.on("zoomend", function(){
-            resetLabels([layer_tl_2025_29_place_2]);
+            resetLabels([layer_tl_2025_29_place_3]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_tl_2025_29_place_2]);
+            resetLabels([layer_tl_2025_29_place_3]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_tl_2025_29_place_2]);
+            resetLabels([layer_tl_2025_29_place_3]);
         });
         </script>
     </body>
