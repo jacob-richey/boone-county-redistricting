@@ -1,0 +1,44 @@
+.legend {
+	position: absolute;
+	bottom: 70px;
+	left: 5px;
+	z-index: 5;
+	width: 50%;
+	font-family: "Arial", sans-serif;
+	font-size: 18px;
+}
+
+
+#district3 li::before {
+	content: '■';
+	color: #0089d0;
+	font-size: 25px;
+	margin-right: 5px;
+}
+
+#district5 li::before {
+	content: '■';
+	color: #f28e26;
+	font-size: 25px;
+	margin-right: 5px;
+}
+
+li {
+	height: 24px;
+}
+
+
+/*
+#district3 {
+	color: #0089d0;
+}
+*/
+
+/*
+#district3 li::before {
+	content: ■;
+	color: #0089d0;
+	font-size: 100px;
+}
+
+*/
