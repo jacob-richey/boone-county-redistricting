@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
         #map {
-            width: 1440px;
-            height: 792px;
+            width: 1107px;
+            height: 739px;
         }
         </style>
         <title>New congressional district lines in Boone County, Missouri</title>
@@ -42,7 +42,7 @@
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:10
-        }).fitBounds([[38.71333554629856,-92.70281144733072],[39.14920922086366,-91.90941101185682]]);
+        }).fitBounds([[38.728419920547076,-92.62603155930609],[39.12338603324658,-92.03385034555731]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
